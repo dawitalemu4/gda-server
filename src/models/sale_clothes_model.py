@@ -32,4 +32,4 @@ class sale_clothes(models.Model):
     price = models.IntegerField(blank=False)
     notes = models.CharField()
     thumbnail = models.CharField(blank=False)
-    gallery = models.CharField(blank=False)
+    gallery = models.CharField(blank=False) # transfer string to json array

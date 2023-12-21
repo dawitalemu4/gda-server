@@ -1,6 +1,6 @@
 from django.db import models
 
-class sale_clothes(models.Model):
+class sold_clothes(models.Model):
     CATEGORIES = {
         "CT": "Clothing, Top",
         "CT": "Clothing, Bottom",
@@ -31,4 +31,4 @@ class sale_clothes(models.Model):
     gender = models.CharField(blank=False, choices=GENDERS)
     notes = models.CharField()
     thumbnail = models.CharField(blank=False)
-    gallery = models.CharField(blank=False)
+    gallery = models.CharField(blank=False) # transfer string to json array

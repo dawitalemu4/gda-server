@@ -1,9 +1,9 @@
 from django.urls import path
 
-from .routes.clothes_urls import clothes_urls
+from .routes.sale_clothes_url import sale_clothes_url
+from .controllers.sale_clothes_controller import sold_clothes_queries
 
 urlpatterns = [
     path(" ", "Hello"),
-    path(clothes_urls.url.getAllCothes, controller),
+    path(sale_clothes_url.get_all_clothes, sold_clothes_queries.get_all_sale_clothes),
 ]
-
