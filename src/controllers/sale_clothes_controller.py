@@ -3,7 +3,7 @@ from django.http import HttpResponse
 import logging
 from ..models.sale_clothes_model import sale_clothes
 
-class sold_clothes_queries:
+class sale_clothes_queries:
     
     def get_all_clothes():
         try:
