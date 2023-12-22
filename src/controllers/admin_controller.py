@@ -1,4 +1,4 @@
-from ..models.admin_model import admin
+from models.admin_model import admin
 
 class admin_queries:
 

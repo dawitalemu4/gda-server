@@ -11,6 +11,9 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
+from dotenv import dotenv_values
+env = dotenv_values(".env")
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -38,8 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'rest_framework',
-    'django_mysql'
+    'rest_framework'
 ]
 
 REST_FRAMEWORK = {
@@ -91,9 +93,15 @@ DATABASES = {
     # }
     "default": {
         "ENGINE": "django.db.backends.mysql",
-        "OPTIONS": {
-            "read_default_file": "../my.cnf",
-        }
+        "NAME": env["NAME"],
+        "USER": env["USER"],
+        "PASSWORD": env["PASSWORD"],
+        "HOST": env["HOST"],
+        "PORT": env["PORT"],
+        'OPTIONS': {
+            'ssl': env['MYSQL_ATTR_SSL_CA'],
+            'charset': 'utf8mb4'
+        },
     }
 }
 
