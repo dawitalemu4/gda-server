@@ -32,9 +32,9 @@ ALLOWED_HOSTS = []
 
 
 # Application definition
-# Where we list all our installed libraries
-INSTALLED_APPS = [
 
+INSTALLED_APPS = [
+    
     'src.apps.srcConfig',
 
     'django.contrib.admin',
@@ -44,7 +44,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'rest_framework'
+    'rest_framework',
+    'corsheaders'
 
 ]
 
@@ -52,7 +53,7 @@ REST_FRAMEWORK = {
     # Use Django's standard `django.contrib.auth` permissions,
     # or allow read-only access for unauthenticated users.
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+        'rest_framework.permissions.AllowAny'
     ]
 }
 
@@ -64,9 +65,16 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
 ]
 
 ROOT_URLCONF = 'src.urls'
+
+# CORS_ALLOWED_ORIGINS = env["CLIENT_URL"]
+
+# if DEBUG == True:
+#     CORS_ALLOWED_ORIGINS = 'http://localhost:3000'
 
 TEMPLATES = [
     {

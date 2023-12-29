@@ -1,3 +1,3 @@
 admin_urls = {
-    "check_credentials": "/auth/name/password" 
+    "check_credentials": "auth/<str:name>/<str:password>/"
 }

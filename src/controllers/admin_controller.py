@@ -1,18 +1,21 @@
 from rest_framework import viewsets
+from rest_framework import status
 from rest_framework.response import Response
-import logging
-from ..models.admin_model import admin
+from ..models.admin_model import admin_model
+from ..utils.db import db
 
-class admin_queries(viewsets.ModelViewSet):
+class admin_queries(viewsets.ViewSet):
 
-    def check_credentials(creds):
+    def check_credentials(self, request, name, password):
         try:
-            admin.objects.raw("SELECT * FROM admin WHERE email = %s AND password = %s", 
-            [creds.email, creds.password])
-            return Response('true', status=200)
-        except creds.DoesNotExist:
-            logging.warning("Incorrect email and password combination")
-            return Response("Incorrect email and password combination", status=400)
+            creds = admin_model(name=name, password=password)
+            if creds.validate():
+                res = db.execute("SELECT * FROM admin WHERE name = %s AND password = %s", (name, password))
+                if res == 0:
+                    return Response({'res': "Incorrect name and password combination"}, status=status.HTTP_403_FORBIDDEN)
+                else:
+                    return Response({'res': 'true'}, status=status.HTTP_200_OK)
+            else:
+                return Response({'res': "Invalid input"}, status=status.HTTP_400_BAD_REQUEST)
         except Exception as e:
-            logging.warning(f"Server error: {e}")
-            return Response(f"Server error: {e}", status=500)
+            return Response({'res': f"Server error: {e}"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
