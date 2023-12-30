@@ -1,4 +1,3 @@
--- SQLBook: Code
 CREATE TABLE sale_clothes (
     id SERIAL PRIMARY KEY,
     title TEXT NOT NULL,

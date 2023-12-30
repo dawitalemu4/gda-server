@@ -33,7 +33,7 @@ class sold_clothes_model(models.Model):
     gender = models.CharField(max_length=255, blank=False, choices=GENDERS)
     notes = models.CharField(max_length=255)
     thumbnail = models.CharField(max_length=255, blank=False)
-    gallery = models.CharField(max_length=255, blank=False) # transfer string to json array
+    gallery = models.CharField(max_length=255, blank=False)
 
     def validate(self): 
         if not self.title or len(self.title) > 255:
