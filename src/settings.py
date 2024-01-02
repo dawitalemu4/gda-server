@@ -71,10 +71,10 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'src.urls'
 
-# CORS_ALLOWED_ORIGINS = env["CLIENT_URL"]
+CORS_ALLOWED_ORIGINS = [env['CLIENT_URL']]
 
-# if DEBUG == True:
-#     CORS_ALLOWED_ORIGINS = 'http://localhost:3000'
+if DEBUG == True:
+    CORS_ALLOWED_ORIGINS.append('http://localhost:3000')
 
 TEMPLATES = [
     {
