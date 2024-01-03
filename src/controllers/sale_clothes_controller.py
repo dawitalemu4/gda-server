@@ -1,6 +1,7 @@
 from rest_framework import viewsets
 from rest_framework import status
 from rest_framework.response import Response
+import json
 from ..models.sale_clothes_model import sale_clothes_model
 from ..utils.db import db
 from ..utils.to_json import convert_data_to_json
@@ -44,9 +45,11 @@ class sale_clothes_queries(viewsets.ViewSet):
     def create_clothing(self, request):
         
         try:
-            data = sale_clothes_model(request.body)
-            
-            if data.validate():
+            input = sale_clothes_model(request.body)
+
+            if input.validate():
+                data = json.loads(request.body)
+                print(json.loads(request.body))
                 db.execute("INSERT INTO sale_clothes (title, description, category, size, measurements, gender, price, notes, thumbnail, gallery) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
                 (data.title, data.description, data.category, data.size, data.measurements, data.gender, data.price, data.notes, data.thumbnail, data.gallery))
                 return Response("Created Sucessfully", status=status.HTTP_201_CREATED)
@@ -78,7 +81,7 @@ class sale_clothes_queries(viewsets.ViewSet):
     def delete_clothing(self, request, id):
         
         try:
-            delete_clothing = db.execute("DELETE sale_clothes WHERE id = %s", (id))
+            delete_clothing = db.execute("DELETE FROM sale_clothes WHERE id = %s", (id))
   
             if delete_clothing == 0:    
                 return Response("Could not find clothing with this id to delete.", status=status.HTTP_400_BAD_REQUEST)

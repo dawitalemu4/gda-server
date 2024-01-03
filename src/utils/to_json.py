@@ -19,7 +19,6 @@ def convert_data_to_json(data, type):
 
         for i in data:
             item = dict(zip(col, i))
-            item['price'] = int(item['price'])
             item['gallery'] = item['gallery'].split(",") 
             res.append(item)
 

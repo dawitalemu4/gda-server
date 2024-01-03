@@ -4,7 +4,7 @@ class sold_clothes_model(models.Model):
 
     CATEGORIES = {
         "CT": "Clothing, Top",
-        "CT": "Clothing, Bottom",
+        "CB": "Clothing, Bottom",
         "CO": "Clothing, Other",
         "A": "Accessories",
         "O": "Other" 
