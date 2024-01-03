@@ -11,7 +11,7 @@ from .controllers.admin_controller import admin_queries
 
 router = DefaultRouter()
 router.register(r'auth', admin_queries, basename="auth")
-router.register(r'sale_clothes', sale_clothes_queries, basename="sold_clothes")
+router.register(r'sale_clothes', sale_clothes_queries, basename="sale_clothes")
 router.register(r'sold_clothes', sold_clothes_queries, basename="sold_clothes")
 
 urlpatterns = [

@@ -4,7 +4,7 @@ class sale_clothes_model(models.Model):
 
     CATEGORIES = {
         "CT": "Clothing, Top",
-        "CT": "Clothing, Bottom",
+        "CB": "Clothing, Bottom",
         "CO": "Clothing, Other",
         "A": "Accessories",
         "O": "Other" 
@@ -42,7 +42,7 @@ class sale_clothes_model(models.Model):
         elif not self.description or len(self.description) > 255:
             return False
         elif not self.category or len(self.category) > 255 or self.category not in self.CATEGORIES:
-            return False
+            return self.category
         elif not self.size or len(self.size) > 255 or self.size not in self.SIZES:
             return False
         elif not self.measurements or len(self.measurements) > 255:
