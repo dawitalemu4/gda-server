@@ -33,26 +33,26 @@ class sold_clothes_model(models.Model):
     gender = models.CharField(max_length=255, blank=False, choices=GENDERS)
     notes = models.CharField(max_length=255)
     thumbnail = models.CharField(max_length=255, blank=False)
-    gallery = models.CharField(max_length=255, blank=False)
+    gallery = models.CharField(max_length=2000, blank=False)
 
     def validate(self): 
         if not self.title or len(self.title) > 255:
             return False
-        elif not self.description or len(self.description) > 255:
+        if not self.description or len(self.description) > 255:
             return False
-        elif not self.category or len(self.category) > 255 or self.category not in self.CATEGORIES:
+        if not self.category or len(self.category) > 255 or self.category not in self.CATEGORIES:
             return False
-        elif not self.size or len(self.size) > 255 or self.size not in self.SIZES:
+        if not self.size or len(self.size) > 255 or self.size not in self.SIZES:
             return False
-        elif not self.measurements or len(self.measurements) > 255:
+        if not self.measurements or len(self.measurements) > 255:
             return False
-        elif not self.gender or len(self.gender) > 255 or self.gender not in self.GENDERS:
+        if not self.gender or len(self.gender) > 255 or self.gender not in self.GENDERS:
             return False
-        elif len(self.notes) > 255:
+        if len(self.notes) > 255:
             return False
-        elif not self.thumbnail or len(self.thumbnail) > 255:
+        if not self.thumbnail or len(self.thumbnail) > 255:
             return False
-        elif not self.gallery or len(self.gallery) > 255:
+        if not self.gallery or len(self.gallery) > 2000:
             return False
-        else:
-            return True
+        
+        return True
