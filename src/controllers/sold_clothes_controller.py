@@ -1,6 +1,7 @@
 from rest_framework import viewsets
 from rest_framework import status
 from rest_framework.response import Response
+import json
 from ..models.sold_clothes_model import sold_clothes_model
 from ..utils.db import db
 from ..utils.to_json import convert_data_to_json
@@ -44,15 +45,17 @@ class sold_clothes_queries(viewsets.ViewSet):
     def create_clothing(self, request):
         
         try:
-            data = sold_clothes_model(request.body)
-            
-            if data.validate():
-                db.execute("INSERT INTO sold_clothes (title, description, category, size, measurements, gender, price, notes, thumbnail, gallery) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", 
-                (data.title, data.description, data.category, data.size, data.measurements, data.gender, data.price, data.notes, data.thumbnail, data.gallery))
+            data = json.loads(request.body)
+            gallery_str = str(data['gallery'])
+            input = sold_clothes_model(title=data['title'], description=data['description'], category=data['category'], size=data['size'], measurements=data['measurements'], gender=data['gender'], notes=data['notes'], thumbnail=data['thumbnail'], gallery=gallery_str)
+
+            if input.validate():
+                db.execute("INSERT INTO sold_clothes (title, description, category, size, measurements, gender, notes, thumbnail, gallery) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)", 
+                (data['title'], data['description'], data['category'], data['size'], data['measurements'], data['gender'], data['notes'], data['thumbnail'], gallery_str))
                 return Response("Created Successfully", status=status.HTTP_201_CREATED)
            
             else:
-                return Response("Could not insert clothing into database", status=status.HTTP_400_BAD_REQUEST)
+                return Response("Could not insert clothing into database, input is not valid.", status=status.HTTP_400_BAD_REQUEST)
         
         except Exception as e:
                 return Response({'res': f"Server error: {e}"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
@@ -61,15 +64,17 @@ class sold_clothes_queries(viewsets.ViewSet):
     def update_clothing(self, request, id):
         
         try: 
-            data = sold_clothes_model(request.body)
+            data=json.loads(request.body)
+            gallery_str = str(data['gallery'])
+            input = sold_clothes_model(title=data['title'], description=data['description'], category=data['category'], size=data['size'], measurements=data['measurements'], gender=data['gender'], thumbnail=data['thumbnail'], gallery=gallery_str)
             
-            if data.validate():
-                db.execute("UPDATE sold_clothes SET title = %s, description = %s, category = %s, size = %s, measurements = %s, gender = %s, price = %s, thumbnail = %s, gallery = %s WHERE id = %s", 
-                (data.title, data.description, data.category, data.size, data.measurements, data.gender, data.price, data.thumbnail, data.gallery, id))
-                return Response("Update Successfully", status=status.HTTP_200_OK)
+            if input.validate():
+                db.execute("UPDATE sold_clothes SET title = %s, description = %s, category = %s, size = %s, measurements = %s, gender = %s, thumbnail = %s, gallery = %s WHERE id = %s", 
+                (data['title'], data['description'], data['category'], data['size'], data['measurements'], data['gender'], data['thumbnail'], gallery_str, id))
+                return Response("Updated Successfully", status=status.HTTP_200_OK)
             
             else:
-                return Response("Could not complete this update request.", status=status.HTTP_400_BAD_REQUEST)
+                return Response("Could not complete this update request, input is not valid.", status=status.HTTP_400_BAD_REQUEST)
         
         except Exception as e:
             return Response({'res': f"Server error: {e}"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
@@ -78,7 +83,7 @@ class sold_clothes_queries(viewsets.ViewSet):
     def delete_clothing(self, request, id):
        
         try:
-            delete_clothing = db.execute("DELETE sold_clothes WHERE id = %s", (id))
+            delete_clothing = db.execute("DELETE FROM sold_clothes WHERE id = %s", (id))
 
             if delete_clothing == 0:    
                 return Response("Could not find clothing with this id to delete.", status=status.HTTP_400_BAD_REQUEST)

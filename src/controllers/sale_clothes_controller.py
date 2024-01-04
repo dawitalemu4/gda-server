@@ -45,17 +45,17 @@ class sale_clothes_queries(viewsets.ViewSet):
     def create_clothing(self, request):
         
         try:
-            input = sale_clothes_model(request.body)
-
+            data = json.loads(request.body)
+            gallery_str = str(data['gallery'])
+            input = sale_clothes_model(title=data['title'], description=data['description'], category=data['category'], size=data['size'], measurements=data['measurements'], gender=data['gender'], price=data['price'], notes=data['notes'], thumbnail=data['thumbnail'], gallery=gallery_str)
+            
             if input.validate():
-                data = json.loads(request.body)
-                print(json.loads(request.body))
                 db.execute("INSERT INTO sale_clothes (title, description, category, size, measurements, gender, price, notes, thumbnail, gallery) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
-                (data.title, data.description, data.category, data.size, data.measurements, data.gender, data.price, data.notes, data.thumbnail, data.gallery))
-                return Response("Created Sucessfully", status=status.HTTP_201_CREATED)
+                (data['title'], data['description'], data['category'], data['size'], data['measurements'], data['gender'], data['price'], data['notes'], data['thumbnail'], gallery_str))
+                return Response("Created Successfully", status=status.HTTP_201_CREATED)
             
             else:
-                return Response("Could not insert clothing into database", status=status.HTTP_400_BAD_REQUEST)
+                return Response("Could not insert clothing into database, input is not valid.", status=status.HTTP_400_BAD_REQUEST)
         
         except Exception as e:
             return Response({'res': f"Server error: {e}"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
@@ -64,15 +64,17 @@ class sale_clothes_queries(viewsets.ViewSet):
     def update_clothing(self, request, id):
         
         try:
-            data = sale_clothes_model(request.body)
+            data = json.loads(request.body)
+            gallery_str = str(data['gallery'])
+            input = sale_clothes_model(title=data['title'], description=data['description'], category=data['category'], size=data['size'], measurements=data['measurements'], gender=data['gender'], price=data['price'], notes=data['notes'], thumbnail=data['thumbnail'], gallery=gallery_str)
             
-            if data.validate():
+            if input.validate():
                 db.execute("UPDATE sale_clothes SET title = %s, description = %s, category = %s, size = %s, measurements = %s, gender = %s, price = %s, notes = %s, thumbnail = %s, gallery = %s WHERE id = %s",
-                (data.title, data.description, data.category, data.size, data.measurements, data.gender, data.price, data.notes, data.thumbnail, data.gallery, id))
-                return Response("Update Sucessfully", status=status.HTTP_200_OK) 
+                (data['title'], data['description'], data['category'], data['size'], data['measurements'], data['gender'], data['price'], data['notes'], data['thumbnail'], gallery_str, id))
+                return Response("Updated Sucessfully", status=status.HTTP_200_OK) 
            
             else:
-                return Response("Could not complete this update request.", status=status.HTTP_400_BAD_REQUEST)
+                return Response("Could not complete this update request, input is not valid.", status=status.HTTP_400_BAD_REQUEST)
         
         except Exception as e:
             return Response({'res': f"Server error: {e}"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
@@ -82,7 +84,7 @@ class sale_clothes_queries(viewsets.ViewSet):
         
         try:
             delete_clothing = db.execute("DELETE FROM sale_clothes WHERE id = %s", (id))
-  
+                    
             if delete_clothing == 0:    
                 return Response("Could not find clothing with this id to delete.", status=status.HTTP_400_BAD_REQUEST)
             
