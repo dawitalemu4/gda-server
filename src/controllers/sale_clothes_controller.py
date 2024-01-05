@@ -4,7 +4,7 @@ from rest_framework.response import Response
 import json
 from ..models.sale_clothes_model import sale_clothes_model
 from ..utils.db import db
-from ..utils.to_json import convert_data_to_json
+from ..utils.gallery_to import to_array, to_string
 
 class sale_clothes_queries(viewsets.ViewSet):
     
@@ -17,9 +17,9 @@ class sale_clothes_queries(viewsets.ViewSet):
                 return Response("No clothing found.", status=status.HTTP_400_BAD_REQUEST)
             
             else:
-                res = db.fetchall()
-                all_clothes_data = convert_data_to_json(res, "sale")
-                return Response(all_clothes_data, status=status.HTTP_200_OK)
+                all_clothes_data = db.fetchall()
+                res = to_array(all_clothes_data)
+                return Response(res, status=status.HTTP_200_OK)
             
         except Exception as e:
             return Response({'res': f"Server error: {e}"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
@@ -34,9 +34,9 @@ class sale_clothes_queries(viewsets.ViewSet):
                 return Response("No clothing with this id found.", status=status.HTTP_400_BAD_REQUEST)
             
             else:
-                res = db.fetchall()
-                clothing_by_id_data = convert_data_to_json(res, "sale")    
-                return Response(clothing_by_id_data, status=status.HTTP_200_OK)
+                all_clothes_data = db.fetchall()
+                res = to_array(all_clothes_data)
+                return Response(res, status=status.HTTP_200_OK)
         
         except Exception as e:
             return Response({'res': f"Server error: {e}"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
@@ -46,7 +46,7 @@ class sale_clothes_queries(viewsets.ViewSet):
         
         try:
             data = json.loads(request.body)
-            gallery_str = str(data['gallery'])
+            gallery_str = to_string(data)
             input = sale_clothes_model(title=data['title'], description=data['description'], category=data['category'], size=data['size'], measurements=data['measurements'], gender=data['gender'], price=data['price'], notes=data['notes'], thumbnail=data['thumbnail'], gallery=gallery_str)
             
             if input.validate():
@@ -65,7 +65,7 @@ class sale_clothes_queries(viewsets.ViewSet):
         
         try:
             data = json.loads(request.body)
-            gallery_str = str(data['gallery'])
+            gallery_str = to_string(data)
             input = sale_clothes_model(title=data['title'], description=data['description'], category=data['category'], size=data['size'], measurements=data['measurements'], gender=data['gender'], price=data['price'], notes=data['notes'], thumbnail=data['thumbnail'], gallery=gallery_str)
             
             if input.validate():
