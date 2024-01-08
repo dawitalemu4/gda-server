@@ -1,9 +1,6 @@
 import pymysql.cursors
 from dotenv import dotenv_values
 
-pymysql.version_info = (1, 4, 3, "final", 0)
-pymysql.install_as_MySQLdb()
-
 env = dotenv_values(".env")
 
 connection = pymysql.connect(
