@@ -12,8 +12,9 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 from pathlib import Path
 import dj_database_url
-from dotenv import dotenv_values
-env = dotenv_values(".env")
+import os
+from dotenv import load_dotenv
+load_dotenv()
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -74,7 +75,7 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'src.urls'
 
-CORS_ALLOWED_ORIGINS = [env['CLIENT_URL']]
+CORS_ALLOWED_ORIGINS = [os.getenv('CLIENT_URL')]
 
 if DEBUG == True:
     CORS_ALLOWED_ORIGINS.append('http://localhost:3000')
@@ -102,12 +103,12 @@ WSGI_APPLICATION = 'src.wsgi.application'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 DATABASES = {
-    'default': dj_database_url.config(default=env['DATABASE_URL'], conn_max_age=600, ssl_require=True),
+    'default': dj_database_url.config(default=os.getenv('DATABASE_URL'), conn_max_age=600, ssl_require=True),
 }
 
 DATABASES['default']['OPTIONS'] = {
     'charset': 'utf8mb4',
-    'ssl': {'ca': env['MYSQL_ATTR_SSL_CA']}
+    'ssl': {'ca': os.getenv('MYSQL_ATTR_SSL_CA')}
 }
 
 # Password validation
