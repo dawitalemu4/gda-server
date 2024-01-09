@@ -13,8 +13,8 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 from pathlib import Path
 import dj_database_url
 import os
-from dotenv import load_dotenv
-load_dotenv()
+from dotenv import dotenv_values
+env = dotenv_values(".env")
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -28,7 +28,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-5if+v2nl-xpf4xd_dx@f$62&50i1s^dg8o(l=t$*=ju%zxe14_'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles_build' / 'static'
 
@@ -75,7 +75,7 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'src.urls'
 
-CORS_ALLOWED_ORIGINS = [os.getenv('CLIENT_URL')]
+CORS_ALLOWED_ORIGINS = [env['CLIENT_URL']]
 
 if DEBUG == True:
     CORS_ALLOWED_ORIGINS.append('http://localhost:3000')
@@ -103,12 +103,18 @@ WSGI_APPLICATION = 'src.wsgi.application'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 DATABASES = {
-    'default': dj_database_url.config(default=os.getenv('DATABASE_URL'), conn_max_age=600, ssl_require=True),
-}
-
-DATABASES['default']['OPTIONS'] = {
-    'charset': 'utf8mb4',
-    'ssl': {'ca': os.getenv('MYSQL_ATTR_SSL_CA')}
+    "default": {
+    "ENGINE": "django.db.backends.mysql",
+     "NAME": env["NAME"],
+        "USER": env["USER"],
+        "PASSWORD": env["PASSWORD"],
+        "HOST": env["HOST"],
+        "PORT": env["PORT"],
+        'OPTIONS': {
+            'ssl': env['MYSQL_ATTR_SSL_CA'],
+            'charset': 'utf8mb4'
+        },
+    }
 }
 
 # Password validation

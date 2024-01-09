@@ -1,18 +1,16 @@
-import pymysql.cursors
-import os
-from dotenv import load_dotenv
-load_dotenv()
+import MySQLdb
+from dotenv import dotenv_values
 
+env = dotenv_values(".env")
 
-connection = pymysql.connect(
-    password=os.getenv("PASSWORD"), 
-    user=os.getenv("USER"), 
-    host=os.getenv("HOST"), 
-    port=int(os.getenv("PORT")), 
-    db=os.getenv("NAME"), 
-    ssl_verify_cert=os.getenv('MYSQL_ATTR_SSL_CA'), 
-    charset='utf8mb4',
-    cursorclass=pymysql.cursors.DictCursor
+connection = MySQLdb.connect(
+    password=env["PASSWORD"], 
+    user=env["USER"], 
+    host=env["HOST"], 
+    port=int(env["PORT"]), 
+    db=env["NAME"], 
+    ssl=env['MYSQL_ATTR_SSL_CA'], 
+    charset='utf8mb4'
 )
 
 db = connection.cursor()
