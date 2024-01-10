@@ -49,7 +49,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'rest_framework',
-    'corsheaders'
+    'corsheaders',
+    'graphene_django'
 
 ]
 
@@ -59,6 +60,10 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.AllowAny'
     ]
+}
+
+GRAPHENE = {
+    "SCHEMA": "graphql_tutorial.schema.schema",
 }
 
 MIDDLEWARE = [

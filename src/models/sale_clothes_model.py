@@ -59,3 +59,8 @@ class sale_clothes_model(models.Model):
             return False
         
         return True
+    
+    class Meta:
+        db_table = "sale_clothes"
+        verbose_name = "sale_clothes"
+        verbose_name_plural = "sale_clothes"
