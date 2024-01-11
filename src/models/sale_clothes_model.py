@@ -2,28 +2,28 @@ from django.db import models
 
 class sale_clothes_model(models.Model):
 
-    CATEGORIES = {
-        "CT": "Clothing, Top",
-        "CB": "Clothing, Bottom",
-        "CO": "Clothing, Other",
-        "A": "Accessories",
-        "O": "Other" 
-    }
-    SIZES = {
-        "XXS": "Extra Extra Small",
-        "XS": "Extra Small",
-        "S": "Small",
-        "M": "Medium",
-        "L": "Large",
-        "XL": "Extra Large",
-        "XXL": "Extra Extra Large",
-        "OS": "One Size"
-    }
-    GENDERS = {
-        "M": "Male",
-        "F": "Female",
-        "U": "Unisex"
-    }
+    CATEGORIES = [
+        ("CT", "Clothing, Top"),
+        ("CB", "Clothing, Bottom"),
+        ("CO", "Clothing, Other"),
+        ("A", "Accessories"),
+        ("O", "Other")
+    ]
+    SIZES = [
+        ("XXS", "Extra Extra Small"),
+        ("XS", "Extra Small"),
+        ("S", "Small"),
+        ("M", "Medium"),
+        ("L", "Large"),
+        ("XL", "Extra Large"),
+        ("XXL", "Extra Extra Large"),
+        ("OS", "One Size")
+    ]
+    GENDERS = [
+        ("M", "Male"),
+        ("F", "Female"),
+        ("U", "Unisex")
+    ]
         
     title = models.CharField(max_length=255, blank=False)
     description = models.CharField(max_length=255, blank=False)
@@ -41,13 +41,13 @@ class sale_clothes_model(models.Model):
             return False
         if not self.description or len(self.description) > 255:
             return False
-        if not self.category or len(self.category) > 255 or self.category not in self.CATEGORIES:
+        if not self.category or len(self.category) > 255 or not any(self.category in pair for pair in self.CATEGORIES):
             return False
-        if not self.size or len(self.size) > 255 or self.size not in self.SIZES:
+        if not self.size or len(self.size) > 255 or not any(self.size in pair for pair in self.SIZES):
             return False
         if not self.measurements or len(self.measurements) > 255:
             return False
-        if not self.gender or len(self.gender) > 255 or self.gender not in self.GENDERS:
+        if not self.gender or len(self.gender) > 255 or not any(self.gender in pair for pair in self.GENDERS):
             return False
         if not self.price:
             return False
@@ -59,3 +59,8 @@ class sale_clothes_model(models.Model):
             return False
         
         return True
+    
+    class Meta:
+        db_table = "sale_clothes"
+        verbose_name = "sale_clothes"
+        verbose_name_plural = "sale_clothes"
