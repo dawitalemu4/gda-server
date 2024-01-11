@@ -25,4 +25,4 @@ CREATE TABLE sold_clothes (
     gallery TEXT NOT NULL
 )
 
--- test postman request body: {"title":"new","description":"desc","category":"CT","size":"S","measurements":"me","gender":"M","price":1,"notes":"n","thumbnail":"h","gallery":"hi,bye,cry,die"}
+-- test postman request body: {"title":"new","description":"desc","category":"Clothing, Top","size":"Small","measurements":"me","gender":"Male","price":1,"notes":"n","thumbnail":"h","gallery":["hi","bye","cry","die"]}
