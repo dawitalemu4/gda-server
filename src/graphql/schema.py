@@ -32,6 +32,8 @@ class Query(graphene.ObjectType):
             return sale_clothes_model.objects.filter(category=category, gender=gender)
         if not category and size and gender:
             return sale_clothes_model.objects.filter(size=size, gender=gender)
+        if category and size and gender:
+            return sale_clothes_model.objects.filter(category=category, size=size, gender=gender)
         else:
             return sale_clothes_model.objects.all()
 
@@ -52,6 +54,8 @@ class Query(graphene.ObjectType):
             return sold_clothes_model.objects.filter(category=category, gender=gender)
         if not category and size and gender:
             return sold_clothes_model.objects.filter(size=size, gender=gender)
+        if category and size and gender:
+            return sold_clothes_model.objects.filter(category=category, size=size, gender=gender)
         else:
             return sold_clothes_model.objects.all()
         
