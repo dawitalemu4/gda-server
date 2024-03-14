@@ -24,7 +24,7 @@ class sold_clothes_model(models.Model):
         ("F", "Female"),
         ("U", "Unisex")
     ]
-        
+
     title = models.CharField(max_length=255, blank=False)
     description = models.CharField(max_length=255, blank=False)
     category = models.CharField(max_length=255, blank=False, choices=CATEGORIES)
@@ -35,7 +35,7 @@ class sold_clothes_model(models.Model):
     thumbnail = models.CharField(max_length=255, blank=False)
     gallery = models.CharField(max_length=2000, blank=False)
 
-    def validate(self): 
+    def validate(self):
         if not self.title or len(self.title) > 255:
             return False
         if not self.description or len(self.description) > 255:
@@ -54,9 +54,9 @@ class sold_clothes_model(models.Model):
             return False
         if not self.gallery or len(self.gallery) > 2000:
             return False
-        
+
         return True
-    
+
     class Meta:
         db_table = "sold_clothes"
         verbose_name = "sold_clothes"

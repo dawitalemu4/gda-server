@@ -15,12 +15,12 @@ class admin_queries(viewsets.ViewSet):
 
                 if res == 0:
                     return Response({'res': "Incorrect name and password combination"}, status=status.HTTP_403_FORBIDDEN)
-                
+
                 else:
                     return Response({'res': 'true'}, status=status.HTTP_200_OK)
-                
+
             else:
                 return Response({'res': "Invalid input"}, status=status.HTTP_400_BAD_REQUEST)
-            
+
         except Exception as e:
             return Response({'res': f"Server error: {e}"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)

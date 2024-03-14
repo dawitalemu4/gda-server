@@ -7,7 +7,7 @@ from ..utils.db import db
 from ..utils.gallery_to import to_array, to_string
 
 class sale_clothes_queries(viewsets.ViewSet):
-    
+
     def get_all_clothes(self, request):
 
         try:
@@ -15,32 +15,31 @@ class sale_clothes_queries(viewsets.ViewSet):
 
             if all_clothes == 0:
                 return Response("No clothing found.", status=status.HTTP_400_BAD_REQUEST)
-            
+
             else:
                 all_clothes_data = db.fetchall()
                 res = to_array(all_clothes_data)
                 return Response(res, status=status.HTTP_200_OK)
-            
+
         except Exception as e:
             return Response({'res': f"Server error: {e}"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-    
+
 
     def get_clothing_by_id(self, request, id):
 
         try:
             clothing_by_id = db.execute("SELECT * FROM sale_clothes WHERE id = %s", (id))
-            
+
             if clothing_by_id == 0:
                 return Response("No clothing with this id found.", status=status.HTTP_400_BAD_REQUEST)
-            
+
             else:
                 all_clothes_data = db.fetchall()
                 res = to_array(all_clothes_data)
                 return Response(res, status=status.HTTP_200_OK)
-        
+
         except Exception as e:
             return Response({'res': f"Server error: {e}"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-
 
     def create_clothing(self, request):
         
@@ -71,7 +70,7 @@ class sale_clothes_queries(viewsets.ViewSet):
             if input.validate():
                 db.execute("UPDATE sale_clothes SET title = %s, description = %s, category = %s, size = %s, measurements = %s, gender = %s, price = %s, notes = %s, thumbnail = %s, gallery = %s WHERE id = %s",
                 (data['title'], data['description'], data['category'], data['size'], data['measurements'], data['gender'], data['price'], data['notes'], data['thumbnail'], gallery_str, id))
-                return Response("Updated Sucessfully", status=status.HTTP_200_OK) 
+                return Response("Updated Successfully", status=status.HTTP_200_OK) 
            
             else:
                 return Response("Could not complete this update request, input is not valid.", status=status.HTTP_400_BAD_REQUEST)
