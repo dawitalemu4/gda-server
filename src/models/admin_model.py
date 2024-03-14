@@ -1,7 +1,7 @@
 from django.db import models
 
 class admin_model(models.Model):
-    
+
     name = models.CharField(max_length=255, blank=False)
     password = models.CharField(max_length=255, blank=False)
 
