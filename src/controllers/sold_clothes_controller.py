@@ -56,7 +56,7 @@ class sold_clothes_queries(viewsets.ViewSet):
 
             else:
                 return Response("Could not insert clothing into database, input is not valid.", status=status.HTTP_400_BAD_REQUEST)
-        
+
         except Exception as e:
             return Response({'res': f"Server error: {e}"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
