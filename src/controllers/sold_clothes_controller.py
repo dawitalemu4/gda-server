@@ -48,7 +48,8 @@ class sold_clothes_queries(viewsets.ViewSet):
             input = sold_clothes_model(title=data['title'], description=data['description'], category=data['category'], size=data['size'], measurements=data['measurements'], gender=data['gender'], notes=data['notes'], thumbnail=data['thumbnail'], gallery=gallery_str)
 
             if input.validate():
-                db.execute("INSERT INTO sold_clothes (title, description, category, size, measurements, gender, notes, thumbnail, gallery) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)", (data['title'], data['description'], data['category'], data['size'], data['measurements'], data['gender'], data['notes'], data['thumbnail'], gallery_str))
+                db.execute("INSERT INTO sold_clothes (title, description, category, size, measurements, gender, notes, thumbnail, gallery) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)",
+                (data['title'], data['description'], data['category'], data['size'], data['measurements'], data['gender'], data['notes'], data['thumbnail'], gallery_str))
                 return Response("Created Successfully", status=status.HTTP_201_CREATED)
 
             else:
@@ -65,7 +66,8 @@ class sold_clothes_queries(viewsets.ViewSet):
             input = sold_clothes_model(title=data['title'], description=data['description'], category=data['category'], size=data['size'], measurements=data['measurements'], gender=data['gender'], thumbnail=data['thumbnail'], gallery=gallery_str)
 
             if input.validate():
-                db.execute("UPDATE sold_clothes SET title = %s, description = %s, category = %s, size = %s, measurements = %s, gender = %s, thumbnail = %s, gallery = %s WHERE id = %s", (data['title'], data['description'], data['category'], data['size'], data['measurements'], data['gender'], data['thumbnail'], gallery_str, id))
+                db.execute("UPDATE sold_clothes SET title = %s, description = %s, category = %s, size = %s, measurements = %s, gender = %s, thumbnail = %s, gallery = %s WHERE id = %s",
+                (data['title'], data['description'], data['category'], data['size'], data['measurements'], data['gender'], data['thumbnail'], gallery_str, id))
                 return Response("Updated Successfully", status=status.HTTP_200_OK)
 
             else:
