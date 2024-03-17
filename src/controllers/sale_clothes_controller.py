@@ -14,7 +14,7 @@ class sale_clothes_queries(viewsets.ViewSet):
             all_clothes = db.execute("SELECT * FROM sale_clothes")
 
             if all_clothes == 0:
-                return Response("No clothing found.", status=status.HTTP_200_OK)
+                return Response("No clothing found.", status=status.HTTP_400_BAD_REQUEST)
 
             else:
                 all_clothes_data = db.fetchall()
