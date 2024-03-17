@@ -105,18 +105,12 @@ WSGI_APPLICATION = 'src.wsgi.application'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.mysql",
-        "NAME": os.getenv('NAME'),
-        "USER": os.getenv('USER'),
-        "PASSWORD": os.getenv('PASSWORD'),
-        "HOST": os.getenv('HOST'),
-        "PORT": os.getenv('PORT'),
-        'OPTIONS': {
-            'ssl': os.getenv('MYSQL_ATTR_SSL_CA'),
-            'charset': 'utf8mb4'
-        },
-    }
+    'default': dj_database_url.config(default=os.getenv('DATABASE_URL'), conn_max_age=600, ssl_require=True),
+}
+
+DATABASES['default']['OPTIONS'] = {
+    'charset': 'utf8mb4',
+    'ssl': {'ca': os.getenv('MYSQL_ATTR_SSL_CA')}
 }
 
 # Password validation
