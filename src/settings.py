@@ -63,7 +63,7 @@ REST_FRAMEWORK = {
 }
 
 GRAPHENE = {
-    "SCHEMA": "graphql_tutorial.schema.schema",
+    "SCHEMA": "src.graphql.schema.schema",
 }
 
 MIDDLEWARE = [
