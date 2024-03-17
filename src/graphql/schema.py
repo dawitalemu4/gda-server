@@ -58,6 +58,6 @@ class Query(graphene.ObjectType):
             return sold_clothes_model.objects.filter(category=category, size=size, gender=gender)
         else:
             return sold_clothes_model.objects.all()
-        
+
 
 schema = graphene.Schema(query=Query)

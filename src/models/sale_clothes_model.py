@@ -24,7 +24,7 @@ class sale_clothes_model(models.Model):
         ("F", "Female"),
         ("U", "Unisex")
     ]
-        
+
     title = models.CharField(max_length=255, blank=False)
     description = models.CharField(max_length=255, blank=False)
     category = models.CharField(max_length=255, blank=False, choices=CATEGORIES)
@@ -57,9 +57,9 @@ class sale_clothes_model(models.Model):
             return False
         if not self.gallery or len(self.gallery) > 2000:
             return False
-        
+
         return True
-    
+
     class Meta:
         db_table = "sale_clothes"
         verbose_name = "sale_clothes"
