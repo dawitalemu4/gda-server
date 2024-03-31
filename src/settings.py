@@ -105,11 +105,12 @@ WSGI_APPLICATION = 'src.wsgi.application'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 DATABASES = {
-    'default': dj_database_url.config(default=os.getenv('DATABASE_URL'), conn_max_age=600),
+    'default': dj_database_url.config(default=os.getenv('DATABASE_URL'), conn_max_age=600, ssl_require=True),
 }
 
 DATABASES['default']['OPTIONS'] = {
-    'charset': 'utf8mb4'
+    'charset': 'utf8mb4',
+    'ssl': {'ca': os.getenv('MYSQL_ATTR_SSL_CA')}
 }
 
 # Password validation
