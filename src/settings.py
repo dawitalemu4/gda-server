@@ -109,16 +109,12 @@ WSGI_APPLICATION = 'src.wsgi.application'
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.mysql",
+        "ENGINE": "django.db.backends.postgresql",
         "NAME": env["NAME"],
         "USER": env["USER"],
         "PASSWORD": env["PASSWORD"],
         "HOST": env["HOST"],
-        "DB_PORT": env["DB_PORT"],
-        'OPTIONS': {
-            'ssl': env['MYSQL_ATTR_SSL_CA'],
-            'charset': 'utf8mb4'
-        },
+        "PORT": env["DB_PORT"]
     }
 }
 
