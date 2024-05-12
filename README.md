@@ -1,4 +1,4 @@
-This API was built with [**Django**](https://www.djangoproject.com/), [**Django Rest Framework**](https://www.django-rest-framework.org/), and [**GraphQL**](https://graphql.org/) [**(Graphene)**](https://docs.graphene-python.org/en/latest/) connected to a MySQL database for an e-commerce site that sells and displays traditional ethiopian clothing called [Genet's Designs and Alterations](https://genetdesigns.vercel.app), a small business run by a tailor named Genet Bekele.
+This API was built with [**Django**](https://www.djangoproject.com/), [**Django Rest Framework**](https://www.django-rest-framework.org/), and [**GraphQL**](https://graphql.org/) [**(Graphene)**](https://docs.graphene-python.org/en/latest/) connected to a PostgreSQL database for an e-commerce site that sells and displays traditional ethiopian clothing called [Genet's Designs and Alterations](https://genetdesigns.vercel.app), a small business run by a tailor named Genet Bekele.
 
 # GraphQL Examples
 

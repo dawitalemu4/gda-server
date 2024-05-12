@@ -9,8 +9,8 @@ CREATE TABLE sale_clothes (
     price INTEGER NOT NULL,
     notes TEXT,
     thumbnail TEXT NOT NULL,
-    gallery TEXT NOT NULL
-)
+    gallery TEXT[] NOT NULL
+);
 
 CREATE TABLE sold_clothes (
     id SERIAL PRIMARY KEY,
@@ -22,7 +22,7 @@ CREATE TABLE sold_clothes (
     gender TEXT NOT NULL,
     notes TEXT,
     thumbnail TEXT NOT NULL,
-    gallery TEXT NOT NULL
-)
+    gallery TEXT[] NOT NULL
+);
 
--- test postman request body: {"title":"new","description":"desc","category":"CT","size":"S","measurements":"me","gender":"M","price":1,"notes":"n","thumbnail":"h","gallery":["hi","bye","cry","die"]}
+-- test postwoman request body: {"title":"new","description":"desc","category":"CT","size":"S","measurements":"me","gender":"M","price":1,"notes":"n","thumbnail":"h","gallery":["hi","bye","cry","die"]}
