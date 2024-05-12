@@ -24,7 +24,7 @@ urlpatterns = [
 
     path('admin/', admin.site.urls),
 
-    path("graphql", csrf_exempt(GraphQLView.as_view(graphiql=True, schema=schema))),
+    path("graphql/", csrf_exempt(GraphQLView.as_view(graphiql=True, schema=schema))),
 
     path(sale_clothes_urls["get_all_clothes"], sale_clothes_queries.as_view({'get': 'get_all_clothes'})),
     path(sale_clothes_urls["get_clothing_by_id"], sale_clothes_queries.as_view({'get': 'get_clothing_by_id'})),
