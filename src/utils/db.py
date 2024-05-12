@@ -10,8 +10,8 @@ connection = pymysql.connect(
     host=os.getenv("HOST"),
     port=int(os.getenv("DB_PORT")),
     db=os.getenv("NAME"),
-    ssl_verify_cert=os.getenv('MYSQL_ATTR_SSL_CA'),
     charset='utf8mb4',
+    ssl_verify_cert=os.getenv('MYSQL_ATTR_SSL_CA'),
     cursorclass=pymysql.cursors.DictCursor
 )
 
