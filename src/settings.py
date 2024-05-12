@@ -114,7 +114,7 @@ DATABASES = {
         "USER": env["USER"],
         "PASSWORD": env["PASSWORD"],
         "HOST": env["HOST"],
-        "PORT": env["PORT"],
+        "DB_PORT": env["DB_PORT"],
         'OPTIONS': {
             'ssl': env['MYSQL_ATTR_SSL_CA'],
             'charset': 'utf8mb4'
