@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.postgres.fields import ArrayField
 
 class sold_clothes_model(models.Model):
 
@@ -33,7 +34,7 @@ class sold_clothes_model(models.Model):
     gender = models.CharField(max_length=255, blank=False, choices=GENDERS)
     notes = models.CharField(max_length=255)
     thumbnail = models.CharField(max_length=255, blank=False)
-    gallery = models.CharField(max_length=2000, blank=False)
+    gallery = ArrayField(models.CharField(max_length=2000, blank=False))
 
     def validate(self):
         if not self.title or len(self.title) > 255:
