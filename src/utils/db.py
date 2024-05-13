@@ -1,14 +1,14 @@
 import psycopg
-from dotenv import dotenv_values
-
-env = dotenv_values(".env")
+import os
+from dotenv import load_dotenv
+load_dotenv()
 
 connection = psycopg.connect(
-    password=env["PASSWORD"],
-    user=env["USER"],
-    host=env["HOST"],
-    port=int(env["DB_PORT"]),
-    dbname=env["NAME"]
+    password=os.getenv("PASSWORD"),
+    user=os.getenv("USER"),
+    host=os.getenv("HOST"),
+    port=os.getenv("DB_PORT"),
+    dbname=os.getenv("NAME")
 )
 
 db = connection.cursor()
