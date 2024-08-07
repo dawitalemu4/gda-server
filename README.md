@@ -1,3 +1,5 @@
+# GDA-server
+
 This API was built with [**Django**](https://www.djangoproject.com/), [**Django Rest Framework**](https://www.django-rest-framework.org/), and [**GraphQL**](https://graphql.org/) [**(Graphene)**](https://docs.graphene-python.org/en/latest/) connected to a PostgreSQL database for an e-commerce site that sells and displays traditional ethiopian clothing called [Genet's Designs and Alterations](https://genetdesigns.vercel.app), a small business run by a tailor named Genet Bekele.
 
 # GraphQL Examples
@@ -25,10 +27,6 @@ Our use case for GraphQL was to easily filter through sale_/sold_clothes data us
 ### Example of fetching all from the sale_clothes table:
 
 ![gql](https://github.com/GDA-dev/GDAserver/assets/106638403/f2617f87-23f1-4a23-8774-e88d078b5478)
-
-### Example of GraphQL type (Django model) being applied properly:
-
-![gqlError](https://github.com/GDA-dev/GDAserver/assets/106638403/5321e172-eba2-4e66-a4d0-caad2d321e22)
 
 # DRF Examples
 
@@ -68,5 +66,3 @@ Following this routing schema:
 To start the Django live server, use the `local` branch and run `python manage.py runserver`.
 
 The `main` and `dev` branches are tweaked for Vercel's serverless deployment and don't work locally. 
-
-Built by Genet Bekele's nephew [Michael Girma](https://github.com/michaelgirma) and his friends.
